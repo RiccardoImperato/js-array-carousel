@@ -45,7 +45,7 @@ let currentThumb = 0;
 for (let i = 0; i < images.length; i++) {
     // Contenitore nel DOM
     const element = document.createElement('div');
-    element.classList.add('thumb-item', 'layer');
+    element.classList.add('thumb-item');
     thumb.append(element);
 
     // Layer
@@ -55,7 +55,6 @@ for (let i = 0; i < images.length; i++) {
 
     if (i === currentThumb) {
         element.classList.add('thumb-active');
-        layer.classList.remove('layer');
     }
 
     // Immagini
