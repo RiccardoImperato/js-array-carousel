@@ -22,7 +22,7 @@ for (let i = 0; i < images.length; i++) {
         item.classList.add('active');
     }
 
-    // Immagine
+    // Immagini
     const img = document.createElement('img');
     img.src = `img/${images[i]}`;
     img.alt = `Landscape ${images[i]}`;
@@ -34,20 +34,72 @@ for (let i = 0; i < images.length; i++) {
 const domItem = document.querySelectorAll('.item');
 console.log(domItem);
 
-// aggiugo un evento al click dell'utente selle frecce in modo da poter scorrere le immagini 
-prev.addEventListener("click", function () {
 
-    if (currentslide > 0) {
+// Thumbnail
+
+// Selezione elemento .list
+const thumb = document.querySelector('.list');
+
+let currentThumb = 0;
+
+for (let i = 0; i < images.length; i++) {
+    // Contenitore nel DOM
+    const element = document.createElement('div');
+    element.classList.add('thumb-item', 'layer');
+    thumb.append(element);
+
+    // Layer
+    const layer = document.createElement('div');
+    element.append(layer);
+    layer.classList.add('layer');
+
+    if (i === currentThumb) {
+        element.classList.add('thumb-active');
+        layer.classList.remove('layer');
+    }
+
+    // Immagini
+    const img = document.createElement('img');
+    img.src = `img/${images[i]}`;
+    img.alt = `Landscape ${images[i]}`;
+    element.append(img);
+
+}
+
+// Node list
+const domThumbItem = document.querySelectorAll('.thumb-item');
+console.log(domThumbItem);
+
+// aggiugo un evento al click dell'utente selle frecce in modo da poter scorrere le immagini 
+
+prev.addEventListener("click", function () {
+    console.log('prev');
+
+    if (currentslide > 0 && currentThumb > 0) {
+        domThumbItem[currentThumb].classList.remove('thumb-active');
         domItem[currentslide].classList.remove('active');
+
+        currentThumb--;
         currentslide--;
+
+        domThumbItem[currentThumb].classList.add('thumb-active');
         domItem[currentslide].classList.add('active');
+
     }
 })
 
 next.addEventListener("click", function () {
-    if (currentslide < domItem.length - 1) {
+    if (currentslide < domItem.length - 1 && currentslide < domItem.length - 1) {
+        console.log('next')
+        domThumbItem[currentThumb].classList.remove('thumb-active');
         domItem[currentslide].classList.remove('active');
+
+
+        currentThumb++;
         currentslide++;
+
+        domThumbItem[currentThumb].classList.add('thumb-active');
         domItem[currentslide].classList.add('active');
+
     }
 })
