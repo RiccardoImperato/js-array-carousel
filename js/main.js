@@ -13,9 +13,12 @@ let currentslide = 0;
 const prev = document.querySelector('.prev');
 const next = document.querySelector('.next');
 
+
+let item = 0;
+
 // Markup
 for (let i = 0; i < images.length; i++) {
-    const item = document.createElement('div');
+    item = document.createElement('div');
     item.classList.add('item');
     // Classe active per visualizzare le immagini
     if (i === currentslide) {
@@ -41,10 +44,11 @@ console.log(domItem);
 const thumb = document.querySelector('.list');
 
 let currentThumb = 0;
+let element = 0;
 
 for (let i = 0; i < images.length; i++) {
     // Contenitore nel DOM
-    const element = document.createElement('div');
+    element = document.createElement('div');
     element.classList.add('thumb-item');
     thumb.append(element);
 
@@ -65,40 +69,52 @@ for (let i = 0; i < images.length; i++) {
 
 }
 
+
 // Node list
 const domThumbItem = document.querySelectorAll('.thumb-item');
 console.log(domThumbItem);
 
 // aggiugo un evento al click dell'utente selle frecce in modo da poter scorrere le immagini 
 
+
 prev.addEventListener("click", function () {
     console.log('prev');
 
-    if (currentslide > 0 && currentThumb > 0) {
-        domThumbItem[currentThumb].classList.remove('thumb-active');
-        domItem[currentslide].classList.remove('active');
+    domThumbItem[currentThumb].classList.remove('thumb-active');
+    domItem[currentslide].classList.remove('active');
 
+    if (currentslide === 0 && currentThumb === 0) {
+
+        currentslide = domItem.length - 1;
+        currentThumb = domThumbItem.length - 1;
+    }
+    else {
         currentThumb--;
         currentslide--;
-
-        domThumbItem[currentThumb].classList.add('thumb-active');
-        domItem[currentslide].classList.add('active');
-
     }
+
+    domThumbItem[currentThumb].classList.add('thumb-active');
+    domItem[currentslide].classList.add('active');
+
 })
 
 next.addEventListener("click", function () {
-    if (currentslide < domItem.length - 1 && currentslide < domItem.length - 1) {
+
+    domThumbItem[currentThumb].classList.remove('thumb-active');
+    domItem[currentslide].classList.remove('active');
+
+
+    if (currentslide === domItem.length - 1 && currentThumb === domThumbItem.length - 1) {
         console.log('next')
-        domThumbItem[currentThumb].classList.remove('thumb-active');
-        domItem[currentslide].classList.remove('active');
-
-
+        currentslide = 0;
+        currentThumb = 0;
+    }
+    else {
         currentThumb++;
         currentslide++;
-
-        domThumbItem[currentThumb].classList.add('thumb-active');
-        domItem[currentslide].classList.add('active');
-
     }
+
+    domThumbItem[currentThumb].classList.add('thumb-active');
+    domItem[currentslide].classList.add('active');
+
 })
